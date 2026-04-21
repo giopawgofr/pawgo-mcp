@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pawgo-mcp"
+version = "1.0.0"
+description = "MCP server for Pawgo pet travel data — airline policies & country requirements for AI assistants"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Pawgo", email = "hello@pawgo.fr"},
+]
+keywords = [
+    "mcp", "pet-travel", "airline-pet-policy", "country-requirements",
+    "dog-travel", "cat-travel", "ai-tools", "claude", "chatgpt",
+    "pet-transport", "animal-travel", "pawgo",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "mcp>=1.0.0",
+    "httpx>=0.25.0",
+]
+
+[project.urls]
+Homepage = "https://www.pawgo.fr"
+Documentation = "https://info.pawgo.fr/developers"
+Repository = "https://github.com/giopawgofr/pawgo-mcp"
+API = "https://info.pawgo.fr/api/v1/coverage"
+
+[project.scripts]
+pawgo-mcp = "pawgo_mcp.server:main"
+
+[tool.setuptools.packages.find]
+include = ["pawgo_mcp*"]
