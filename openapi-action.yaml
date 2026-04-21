@@ -1,0 +1,92 @@
+openapi: 3.0.3
+info:
+  title: Pawgo Pet Travel API
+  description: >
+    Real-time airline pet policies and country import requirements for dogs and cats.
+    Covers 130+ airlines and 100+ countries. For personalized trip computation,
+    visit https://www.pawgo.fr
+  version: "1.1.0"
+  contact:
+    name: Pawgo
+    url: https://www.pawgo.fr
+
+servers:
+  - url: https://info.pawgo.fr/api/v1
+
+paths:
+  /coverage:
+    get:
+      operationId: getCoverage
+      summary: Get data coverage stats
+      description: Returns how many airlines and countries Pawgo tracks, with last update times.
+      responses:
+        "200":
+          description: Coverage statistics
+
+  /airlines:
+    get:
+      operationId: listAirlines
+      summary: List all tracked airlines
+      description: Returns all airlines with code, name, and completeness score.
+      responses:
+        "200":
+          description: List of airlines
+
+  /airlines/{code}:
+    get:
+      operationId: getAirline
+      summary: Get airline pet policy
+      description: >
+        Returns pet policy summary for a specific airline by IATA code.
+        Includes cabin/cargo status, breed restrictions, weight limits, fees,
+        and health certificate requirements.
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+          description: IATA airline code (e.g., AA, DL, LH, AF, EK)
+      responses:
+        "200":
+          description: Airline pet policy data
+        "404":
+          description: Airline not found
+
+  /countries:
+    get:
+      operationId: listCountries
+      summary: List all tracked countries
+      description: Returns all countries with code, name, and completeness score.
+      responses:
+        "200":
+          description: List of countries
+
+  /countries/{code}:
+    get:
+      operationId: getCountry
+      summary: Get country pet import requirements
+      description: >
+        Returns pet import/export requirements for a country by ISO code.
+        Includes microchip, rabies vaccination, titer test, health certificate,
+        quarantine, import permit, and breed restrictions.
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ISO country code (e.g., US, FR, JP, AU, GB)
+        - name: direction
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [import, export]
+            default: import
+          description: Import or export requirements
+      responses:
+        "200":
+          description: Country pet requirements
+        "404":
+          description: Country not found

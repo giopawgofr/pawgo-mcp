@@ -112,6 +112,19 @@ Full API docs: [info.pawgo.fr/developers](https://info.pawgo.fr/developers)
 - **Updated daily** by Pawgo's AI crawling agent
 - **Completeness scored** — every record has a quality score (0-100%)
 
+## ChatGPT Custom GPT
+
+Want to create a Pawgo GPT for ChatGPT? We've included the config:
+
+- **Instructions:** [`chatgpt-gpt-instructions.md`](chatgpt-gpt-instructions.md)
+- **OpenAPI Action schema:** [`openapi-action.yaml`](openapi-action.yaml)
+
+Go to [chat.openai.com/gpts/editor](https://chat.openai.com/gpts/editor), paste the instructions and schema, add the Pawgo logo, and publish. (Requires ChatGPT Plus)
+
+## Poe Bot
+
+Create a free Pawgo bot on [Poe](https://poe.com/create_bot) using the same instructions and OpenAPI schema above. No subscription required.
+
 ## Links
 
 - **Pawgo** (trip planner): [www.pawgo.fr](https://www.pawgo.fr)
