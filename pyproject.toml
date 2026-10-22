@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pawgo-mcp"
-version = "1.1.0"
+version = "1.1.1"
 description = "MCP server for Pawgo pet travel data — airline policies & country requirements for AI assistants"
 readme = "README.md"
 license = {text = "MIT"}
@@ -28,7 +28,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
 ]
 dependencies = [
-    "mcp>=1.0.0",
+    "mcp>=1.0.0,<2",
     "httpx>=0.25.0",
 ]
 
