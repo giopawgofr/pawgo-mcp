@@ -38,6 +38,21 @@ def _get(path: str, params: dict = None) -> dict:
         return {"error": str(e)}
 
 
+def _val(leaf):
+    """Unwrap a leaf envelope: the API returns {value|required, status, citation_url...}
+    per field, not a bare scalar. Plain scalars pass through, so this also reads
+    older API responses."""
+    if isinstance(leaf, dict):
+        if leaf.get("status") in ("not_found", "needs_review", "demoted"):
+            return None
+        return leaf["value"] if leaf.get("value") is not None else leaf.get("required")
+    return leaf
+
+
+def _unwrap(summary: dict) -> dict:
+    return {k: _val(v) for k, v in summary.items()}
+
+
 def _fmt_bool(val) -> str:
     if val is True:
         return "Yes"
@@ -58,7 +73,7 @@ def check_airline_policy(airline_code: str) -> str:
 
     d = data.get("data", {})
     name = d.get("name", airline_code.upper())
-    s = d.get("summary", d.get("requirements", {}))
+    s = _unwrap(d.get("summary", d.get("requirements", {})))
 
     lines = [f"# {name} Pet Travel Policy"]
 
@@ -106,7 +121,7 @@ def check_country_requirements(country_code: str, direction: str = "import") -> 
 
     d = data.get("data", {})
     name = d.get("name", country_code.upper())
-    s = d.get("summary", d.get("requirements", {}))
+    s = _unwrap(d.get("summary", d.get("requirements", {})))
 
     lines = [f"# Pet {direction.title()} Requirements for {name}"]
 
